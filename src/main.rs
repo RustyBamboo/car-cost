@@ -35,25 +35,44 @@ fn App() -> Element {
         // let total_cost_gal = total_miles / *miles_per_gal * *dollars_per_gal;
     };
     rsx! {
-        input {
-            value: "{bat_capacity_kwh}",
-            oninput: move |event| {bat_capacity_kwh.set(event.value().parse().unwrap_or(0.0)); calculate_statistics()}
+        link { rel: "stylesheet", href: "main.css" }
+        fieldset {
+            legend {"Electric"}
+            label { r#for: "bat_capacity_kwh", "Battery Capacity (kWh):" }
+            input {
+                value: "{bat_capacity_kwh}",
+                id: "bat_capacity_kwh",
+                oninput: move |event| {bat_capacity_kwh.set(event.value().parse().unwrap_or(0.0)); calculate_statistics()}
+            }
+            label { r#for: "miles_per_kwh", "Miles per kWh:" }
+            input {
+                value: "{miles_per_kwh}",
+                oninput: move |event| {miles_per_kwh.set(event.value().parse().unwrap_or(0.0)); calculate_statistics()}
+            }
+            label { r#for: "dollars_per_kwh", "Dollars per kWh:" }
+            input {
+                value: "{dollars_per_kwh}",
+                oninput: move |event| {dollars_per_kwh.set(event.value().parse().unwrap_or(0.0)); calculate_statistics()}
+            }
         }
-        input {
-            value: "{miles_per_kwh}",
-            oninput: move |event| {miles_per_kwh.set(event.value().parse().unwrap_or(0.0)); calculate_statistics()}
-        }
-        input {
-            value: "{miles_per_gal}",
-            oninput: move |event| {miles_per_gal.set(event.value().parse().unwrap_or(0.0)); calculate_statistics()}
-        }
-        input {
-            value: "{dollars_per_kwh}",
-            oninput: move |event| {dollars_per_kwh.set(event.value().parse().unwrap_or(0.0)); calculate_statistics()}
-        }
-        input {
-            value: "{dollars_per_gal}",
-            oninput: move |event| {dollars_per_gal.set(event.value().parse().unwrap_or(0.0)); calculate_statistics()}
+        fieldset {
+            legend {"Gasoline"}
+
+            label { r#for: "gas_capacity_gal", "Tank Capacity (gals):" }
+            input {
+                value: "{gas_capacity_gal}",
+                oninput: move |event| {gas_capacity_gal.set(event.value().parse().unwrap_or(0.0)); calculate_statistics()}
+            }
+            label { r#for: "miles_per_gal", "Miles per gallon:" }
+            input {
+                value: "{miles_per_gal}",
+                oninput: move |event| {miles_per_gal.set(event.value().parse().unwrap_or(0.0)); calculate_statistics()}
+            }
+            label { r#for: "dollars_per_gal", "Dollars per gallon:" }
+            input {
+                value: "{dollars_per_gal}",
+                oninput: move |event| {dollars_per_gal.set(event.value().parse().unwrap_or(0.0)); calculate_statistics()}
+            }
         }
         h1 {"Total miles electric: {total_miles_electric}"}
         h1 {"Total miles gas: {total_miles_gas}"}
